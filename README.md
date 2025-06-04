@@ -12,7 +12,7 @@ Este código em Python utiliza técnicas de processamento de imagens e aprendiza
 1. Clone ou baixe este repositório para a sua máquina.
 2. Abra um terminal e navegue até o diretório onde os arquivos foram salvos.
 3. Certifique-se de que as bibliotecas necessárias estão instaladas. Caso contrário, instale-as com o comando pip install nome_da_biblioteca.
-4. Execute o arquivo detect_emotions.py com o comando python detect_emotions.py.
+4. Execute o arquivo `app.py` com o comando `python app.py`.
 5. A câmera do seu computador será ativada e a detecção de emoções será iniciada.
 
 ## Arquivos
