@@ -22,6 +22,7 @@ while True:
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(
         gray, scaleFactor=1.1, minNeighbors=5, minSize=(30, 30))  # Detecta faces no quadro
+    predictions = []  # Armazena as predições de cada face
 
     for i, (x, y, w, h) in enumerate(faces):
         # Extrai a região de interesse correspondente ao rosto
@@ -37,6 +38,7 @@ while True:
         preds = model.predict(roi_gray)[0]  # Executa a predição de emoção
         # Determina a emoção correspondente ao índice com maior probabilidade
         label = emotion_dict[np.argmax(preds)]
+        predictions.append((preds, label))  # Guarda as predições para uso posterior
         # Exibe a emoção detectada acima do retângulo que envolve o rosto
         cv2.putText(frame, label, (x, y-10),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 0), 2)
@@ -53,9 +55,8 @@ while True:
                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2)
 
     for i, (x, y, w, h) in enumerate(faces):
-        # Determina a emoção correspondente ao índice com maior probabilidade
-        label = emotion_dict[np.argmax(preds)]
-        if label == 'Angry' or label == 'Disgusted' or label == 'Fearful' or label == 'Sad':
+        preds, label = predictions[i]
+        if label in ['Angry', 'Disgusted', 'Fearful', 'Sad']:
             color = (0, 0, 255)  # Vermelho
         else:
             color = (0, 255, 0)  # Verde
